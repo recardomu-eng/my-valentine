@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffeef8;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #main-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        h1 { color: #d63384; margin-bottom: 30px; }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #no-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #final-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff4d6d;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            position: absolute;
+            top: -20px;
+            color: #ff4d6d;
+            font-size: 24px;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-card">
+        <div id="question-screen">
+            <h1>Будешь моей валентинкой? ❤️</h1>
+            <div class="buttons">
+                <button id="yes-btn">ДА!</button>
+                <button id="no-btn">Нет</button>
+            </div>
+        </div>
+
+        <div id="final-screen">
+            <img src="C:\Users\admin1\Downloads\photo.jpg.jpg" alt="Любимое фото" class="photo" id="love-img">
+            <h1 id="thanks-text">Спасибо! Я тебя очень сильно люблю! ❤️</h1>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const questionScreen = document.getElementById('question-screen');
+        const finalScreen = document.getElementById('final-screen');
+        let yesSize = 18;
+
+        noBtn.addEventListener('click', () => {
+            yesSize += 40; // Кнопка растет быстро!
+            yesBtn.style.fontSize = yesSize + 'px';
+            yesBtn.style.padding = (yesSize / 2) + 'px ' + yesSize + 'px';
+            
+            const messages = ["Точно?", "Подумай еще!", "А если так?", "Без вариантов!", "ДАГИСТАААН!" ];
+            noBtn.innerText = messages[Math.floor(Math.random() * messages.length)];
+        });
+
+        yesBtn.addEventListener('click', () => {
+            questionScreen.style.display = 'none'
+            finalScreen.style.display = 'flex';
+            startHearts();
+        });
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
